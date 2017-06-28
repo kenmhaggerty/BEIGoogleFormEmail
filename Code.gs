@@ -13,7 +13,7 @@
 
 ////////// CONSTANTS //////////
 
-var testRow = 3;
+var testRow = 2;
 
 var responsesSheetName = "Form Responses 1";
 var startingRow = 2;
