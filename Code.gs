@@ -1,5 +1,5 @@
 // KEN M. HAGGERTY
-// GOOGLE APPS SCRIPT – googleAppsScript.js
+// GOOGLE APPS SCRIPT – Code.gs
 // GOOGLE FORM EMAIL (BEIGoogleFormEmail)
 // VERSION : 0.1
 // FOR     : DAVID HESTRIN
