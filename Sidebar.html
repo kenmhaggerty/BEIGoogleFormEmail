@@ -26,8 +26,7 @@
     <header>
       Select row with email:
       <form> <!-- action="/action_page.php" -->
-        <select name="columns">
-          <option value="kenmhaggerty@gmail.com">kenmhaggerty@gmail.com</option>
+        <select name="selectRow" id="selectRow">
         </select>
         <input type="submit" value="Refresh">
       </form>
@@ -52,8 +51,20 @@
     <!-- CLIENT-SIDE SCRIPTS -->
     
     <script>
+      google.script.run
+        .withSuccessHandler(setRowOptions)
+        .test();
+    </script>
+
+    <script>
+
       function clientFunction(parameter) {
       }
+
+      function setRowOptions(options) {
+        $("#selectRow").append(rowOptions);
+      }
+
     </script>
     
   </body>
