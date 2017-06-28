@@ -13,6 +13,7 @@
 
 ////////// CONSTANTS //////////
 
+var selectorColumn = 1; // where column A = 1
 var testRow = 2;
 
 var responsesSheetName = "Form Responses 1";
@@ -33,10 +34,24 @@ function onOpen() {
 
 function test() {
   Logger.log("[METHOD] test");
-
-  // empty
+  
+  var options = getSelectorOptions();
+  Logger.log(options);
   
   Logger.log("[DONE] test");
+}
+
+////////// DATA //////////
+
+function getSelectorOptions() {
+  Logger.log("[METHOD] getSelectorOptions");
+  
+  var rows = getResponseRows();
+  var options = [];
+  for (i = 0; i < rows.length; i++) {
+    options.push(rows[i][selectorColumn-1]);
+  }
+  return options;
 }
 
 ////////// GOOGLE SHEET //////////
