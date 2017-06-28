@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+// KEN M. HAGGERTY
+// GOOGLE APPS SCRIPT – Sidebar.html
+// GOOGLE FORM EMAIL (BEIGoogleFormEmail)
+// VERSION : 0.1
+// FOR     : DAVID HESTRIN
+// CREATED : JUN 28 2017
+// EDITED  : JUN 28 2017
+-->
+
+<html>
+  <head>
+    <base target="_top">
+    
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons.css">
+    
+  </head>
+  
+  <body>
+  
+    <!-- HTML BODY -->
+    
+    <header>
+      Select row with email:
+      <form> <!-- action="/action_page.php" -->
+        <select name="selectRow" id="selectRow">
+        </select>
+        <input type="submit" value="Refresh">
+      </form>
+    </header>
+    
+    <table id="tableRowData">
+    </table>
+    
+    <div id="formEmail">
+      <form id="emailParameters">
+        <input type="text" name="email" id="email">
+      </form>
+      <button class="action" id="submitButton" onclick="google.script.run
+      .withSuccessHandler(clientFunction)
+      .backendFunction($('#email').val());">Send email</button>
+    </div>
+    
+    <!-- IMPORT JQUERY -->
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <!-- CLIENT-SIDE SCRIPTS -->
+    
+    <script>
+      google.script.run
+        .withSuccessHandler(setRowOptions)
+        .test();
+    </script>
+
+    <script>
+
+      function clientFunction(parameter) {
+      }
+
+      function setRowOptions(options) {
+        $("#selectRow").append(rowOptions);
+      }
+
+    </script>
+    
+  </body>
+</html>
