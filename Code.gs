@@ -40,12 +40,8 @@ function test() {
   Logger.log(options);
   
   Logger.log("[DONE] test");
-}
 
-function getRowOptions() {
-  Logger.log("[METHOD] getRowOptions");
-
-  return "<option value='kenmhaggerty@gmail.com'>kenmhaggerty@gmail.com</option>";
+  return options;
 }
 
 function backendFunction(input) {
@@ -87,8 +83,11 @@ function getSelectorOptions() {
   
   var rows = getResponseRows();
   var options = [];
+  var option, optionHtml;
   for (i = 0; i < rows.length; i++) {
-    options.push(rows[i][selectorColumn-1]);
+    option = rows[i][selectorColumn-1];
+    optionHtml = "<option value='"+option+"'>"+option+"</option>";
+    options.push(optionHtml);
   }
   return options;
 }

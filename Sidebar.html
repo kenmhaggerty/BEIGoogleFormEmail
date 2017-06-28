@@ -27,6 +27,7 @@
       Select row with email:
       <form> <!-- action="/action_page.php" -->
         <select name="selectRow" id="selectRow">
+          <option>loading...</option>
         </select>
         <input type="submit" value="Refresh">
       </form>
@@ -54,14 +55,14 @@
       
       function setup() {
         google.script.run
-          .withSuccessHandler(setRowOptions)
-          .getRowOptions();
+          .withSuccessHandler(setSelectorOptions)
+          .getSelectorOptions();
       }
 
       function clientFunction(parameter) {
       }
 
-      function setRowOptions(options) {
+      function setSelectorOptions(options) {
         $("#selectRow").empty().append(options);
       }
 
