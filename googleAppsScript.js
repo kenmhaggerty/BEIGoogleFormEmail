@@ -11,21 +11,21 @@
 // > This code is derived from BEIProduceFormAppScript and updated to make it more generic.
 // > Make sure column A is blank for all non-response rows.
 
-// CONSTANTS
+////////// CONSTANTS //////////
 
-var testRow = 4;
+var testRow = 3;
 
 var responsesSheetName = "Form Responses 1";
-var startingRow = 3;
+var startingRow = 2;
 
-// MENU ITEMS
+////////// USER INTERFACE //////////
 
 function onOpen() {
   Logger.log("[METHOD] onOpen");
   
   var ui = SpreadsheetApp.getUi();
-  ui.createMenu('Email')
-      .addItem('Compose email...', 'showEmailComposer')
+  ui.createMenu("Email")
+      .addItem("Compose email...", "showEmailComposer")
       .addToUi();
 }
 
@@ -36,10 +36,12 @@ function showEmailComposer() {
   
   var ui = SpreadsheetApp.getUi();
   
+  // Done
+  
   Logger.log("[SCRIPT COMPLETE]");
 }
 
-// EMAIL GENERATION
+////////// EMAIL //////////
 
 function sendEmail() {
   Logger.log("[METHOD] sendEmail");
@@ -57,7 +59,7 @@ function sendEmail() {
   });
 }
 
-// ADDITIONAL FUNCTIONS
+////////// GOOGLE SHEET //////////
 
 function getRow(index) {
   Logger.log("[METHOD] getRow");
@@ -90,6 +92,8 @@ function getColumnForHeader(header) {
   return column;
 }
 
+////////// HTML TABLE //////////
+
 function getHTMLTable(array, headers, cellStyle, rowStyle, tableStyle) {
   Logger.log("[METHOD] getHTMLTable");
   
@@ -102,13 +106,13 @@ function getHTMLTable(array, headers, cellStyle, rowStyle, tableStyle) {
     htmlTable += htmlRow;
   }
   
-  if (Object.prototype.toString.call(headers) === '[object Array]') {
+  if (Object.prototype.toString.call(headers) === "[object Array]") {
     htmlRow = getHTMLRow(headers, cellStyle, rowStyle);
     htmlTable = htmlRow + htmlTable;
   }
   
   var tags = "";
-  if (Object.prototype.toString.call(tableStyle) === '[object String]') {
+  if (Object.prototype.toString.call(tableStyle) === "[object String]") {
     tags = " style='"+tableStyle+"'";
   }
   
@@ -120,7 +124,7 @@ function getHTMLRow(array, cellStyle, rowStyle) {
   Logger.log("[METHOD] getHTMLRow");
   
   var tags = "";
-  if (Object.prototype.toString.call(cellStyle) === '[object String]') {
+  if (Object.prototype.toString.call(cellStyle) === "[object String]") {
     tags = " style='"+cellStyle+"'";
   }
   
@@ -132,7 +136,7 @@ function getHTMLRow(array, cellStyle, rowStyle) {
   }
   
   tags = "";
-  if (Object.prototype.toString.call(rowStyle) === '[object String]') {
+  if (Object.prototype.toString.call(rowStyle) === "[object String]") {
     tags = " style='"+rowStyle+"'";
   }
   
