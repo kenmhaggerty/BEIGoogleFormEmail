@@ -19,7 +19,7 @@
     
   </head>
   
-  <body>
+  <body onload="setup();">
   
     <!-- HTML BODY -->
     
@@ -49,20 +49,20 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     
     <!-- CLIENT-SIDE SCRIPTS -->
-    
-    <script>
-      google.script.run
-        .withSuccessHandler(setRowOptions)
-        .test();
-    </script>
 
     <script>
+      
+      function setup() {
+        google.script.run
+          .withSuccessHandler(setRowOptions)
+          .getRowOptions();
+      }
 
       function clientFunction(parameter) {
       }
 
       function setRowOptions(options) {
-        $("#selectRow").append(rowOptions);
+        $("#selectRow").empty().append(options);
       }
 
     </script>

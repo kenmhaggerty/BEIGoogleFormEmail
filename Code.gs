@@ -42,6 +42,12 @@ function test() {
   Logger.log("[DONE] test");
 }
 
+function getRowOptions() {
+  Logger.log("[METHOD] getRowOptions");
+
+  return "<option value='kenmhaggerty@gmail.com'>kenmhaggerty@gmail.com</option>";
+}
+
 function backendFunction(input) {
   Logger.log("[METHOD] backendFunction");
   
