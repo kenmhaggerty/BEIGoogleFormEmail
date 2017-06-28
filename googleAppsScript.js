@@ -1,5 +1,5 @@
 // KEN M. HAGGERTY
-// GOOGLE APPS SCRIPT
+// GOOGLE APPS SCRIPT – googleAppsScript.js
 // GOOGLE FORM EMAIL (BEIGoogleFormEmail)
 // VERSION : 0.1
 // FOR     : DAVID HESTRIN
@@ -18,6 +18,14 @@ var testRow = 3;
 var responsesSheetName = "Form Responses 1";
 var startingRow = 2;
 
+////////// TESTING //////////
+
+function backendFunction(input) {
+  Logger.log("[METHOD] backendFunction");
+  
+  return input;
+}
+
 ////////// USER INTERFACE //////////
 
 function onOpen() {
@@ -34,11 +42,23 @@ function showEmailComposer() {
   
   // Generate Pane UI
   
-  var ui = SpreadsheetApp.getUi();
+  var htmlSidebar = HtmlService.createHtmlOutputFromFile("Sidebar");
+  htmlSidebar.setTitle("Compose email");
+  SpreadsheetApp.getUi().showSidebar(htmlSidebar);
   
   // Done
   
-  Logger.log("[SCRIPT COMPLETE]");
+  Logger.log("[DONE] showEmailComposer");
+}
+
+function submitForm() {
+  Logger.log("[METHOD] submitForm");
+  
+  SpreadsheetApp.getUi().alert("Form submitted!", ui.ButtonSet.OK);
+  
+  // Done
+  
+  Logger.log("[DONE] submitForm");
 }
 
 ////////// EMAIL //////////
