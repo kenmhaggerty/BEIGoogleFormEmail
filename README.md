@@ -30,3 +30,7 @@ This branch contains just the code necessary to send a quick email straight from
 4. Enter the subject line for your emails. All emails will use the same subject line.
 
 5. A confirmation alert will appear once all emails have been sent.
+
+### Notes
+
+- This script assumes that responses start on row 2.
