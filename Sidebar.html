@@ -19,7 +19,7 @@
     
   </head>
   
-  <body>
+  <body onload="setup();">
   
     <!-- HTML BODY -->
     
@@ -27,6 +27,7 @@
       Select row with email:
       <form> <!-- action="/action_page.php" -->
         <select name="selectRow" id="selectRow">
+          <option>loading...</option>
         </select>
         <input type="submit" value="Refresh">
       </form>
@@ -49,20 +50,20 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     
     <!-- CLIENT-SIDE SCRIPTS -->
-    
-    <script>
-      google.script.run
-        .withSuccessHandler(setRowOptions)
-        .test();
-    </script>
 
     <script>
+      
+      function setup() {
+        google.script.run
+          .withSuccessHandler(setSelectorOptions)
+          .getSelectorOptions();
+      }
 
       function clientFunction(parameter) {
       }
 
-      function setRowOptions(options) {
-        $("#selectRow").append(rowOptions);
+      function setSelectorOptions(options) {
+        $("#selectRow").empty().append(options);
       }
 
     </script>
