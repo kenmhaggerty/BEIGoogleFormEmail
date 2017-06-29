@@ -4,7 +4,7 @@
 // VERSION : 0.1
 // FOR     : DAVID HESTRIN
 // CREATED : JUN 28 2017
-// EDITED  : JUN 28 2017
+// EDITED  : JUN 29 2017
 
 // NOTES
 
@@ -26,8 +26,8 @@ function onOpen() {
   
   var ui = SpreadsheetApp.getUi();
   ui.createMenu("Email")
-      .addItem("Test", "test")
-      .addToUi();
+    .addItem("Test", "test")
+    .addToUi();
 }
 
 ////////// DEBUGGING //////////
