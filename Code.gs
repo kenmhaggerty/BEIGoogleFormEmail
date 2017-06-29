@@ -13,9 +13,6 @@
 
 ////////// CONSTANTS //////////
 
-var selectorColumn = 1; // where column A = 1
-var testRow = 2;
-
 var responsesSheetName = "Form Responses 1";
 var startingRow = 2;
 
@@ -26,45 +23,98 @@ function onOpen() {
   
   var ui = SpreadsheetApp.getUi();
   ui.createMenu("Email")
-    .addItem("Test", "test")
+    .addItem("Email comments...", "emailComments")
     .addToUi();
 }
 
-////////// DEBUGGING //////////
+////////// ACTIONS //////////
 
-function test() {
-  Logger.log("[METHOD] test");
+function emailComments() {
+  Logger.log("[METHOD] emailComments");
+
+  // Email column prompt UI
+
+  var emailResponse = getResponseForPrompt("Please enter column for email address", "where column A = 1:");
+  var emailColumn = convertTextToPositiveInteger(emailResponse, "Invalid column", "Could not get emails from column "+emailResponse+".");
+  if (isNaN(emailColumn)) {
+    return;
+  }
+
+  // Comment column prompt UI
+
+  var commentResponse = getResponseForPrompt("Please enter column for email body", "where column A = 1:");
+  var commentColumn = convertTextToPositiveInteger(commentResponse, "Invalid column", "Could not get comments from column "+commentResponse+".");
+  if (isNaN(commentColumn)) {
+    return;
+  }
+
+  // Email subject prompt UI
+
+  var subject = getResponseForPrompt("Please enter subject for email", "");
+
+  // Generate and send emails
   
-  var options = getSelectorOptions();
-  Logger.log(options);
+  var responses = getResponseRows();
+  var row, email, comment;
+  var count = 0;
+  for (i in responses) {
+    row = responses[i];
+    email = row[emailColumn-1];
+    comment = row[commentColumn-1];
+    sendEmail(email, subject, comment);
+    count += 1;
+  }
+
+  // Done
   
-  Logger.log("[DONE] test");
+  var ui = SpreadsheetApp.getUi();
+  ui.alert("Emails successfully sent", count+" emails sent.", ui.ButtonSet.OK);
+
+  Logger.log("[DONE] emailComments");
 }
 
-////////// DATA //////////
+////////// USER INTERFACE //////////
 
-function getSelectorOptions() {
-  Logger.log("[METHOD] getSelectorOptions");
+function getResponseForPrompt(title, body) {
+  Logger.log("[METHOD] getResponseForPrompt");
   
-  var rows = getResponseRows();
-  var options = [];
-  for (i = 0; i < rows.length; i++) {
-    options.push(rows[i][selectorColumn-1]);
+  var ui = SpreadsheetApp.getUi();
+  
+  var prompt = ui.prompt(title, body, ui.ButtonSet.OK_CANCEL);
+  
+  var button = prompt.getSelectedButton();
+  if ((button == ui.Button.CANCEL) || (button == ui.Button.CLOSE)) {
+    return null;
   }
-  return options;
+  
+  return prompt.getResponseText();
+}
+
+function convertTextToPositiveInteger(text, errorTitle, errorMessage) {
+  Logger.log("[METHOD] convertTextToPositiveInteger");
+
+  if (isNaN(text) || (Number(text) % 1 != 0) || (Number(text) <= 0)) {
+    var ui = SpreadsheetApp.getUi();
+    ui.alert(errorTitle, errorMessage, ui.ButtonSet.OK);
+    return NaN;
+  }
+
+  return Number(text);
+}
+
+////////// EMAIL //////////
+
+function sendEmail(recipient, subject, htmlBody) {
+  Logger.log("[METHOD] sendEmail");
+
+  MailApp.sendEmail({
+    to: recipient,
+    subject: subject,
+    htmlBody: htmlBody
+  });
 }
 
 ////////// GOOGLE SHEET //////////
-
-function getRow(index) {
-  Logger.log("[METHOD] getRow");
-  
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(responsesSheetName);
-  var numOfColumns = sheet.getLastColumn();
-  var range = sheet.getRange(index, 1, 1, numOfColumns);
-  var values = range.getValues();
-  return values[0];
-}
 
 function getResponseRows() {
   Logger.log("[METHOD] getResponseRows");
@@ -77,12 +127,4 @@ function getResponseRows() {
   }
   rows = rows.splice(startingRow-1, i+1-startingRow);
   return rows;
-}
-
-function getColumnForHeader(header) {
-  Logger.log("[METHOD] getColumnForHeader");
-  
-  var headerRow = getRow(1);
-  var column = headerRow.indexOf(header);
-  return column;
 }
